@@ -185,7 +185,7 @@ WMIC PATH WIN32_NETWORKADAPTER WHERE PHYSICALADAPTER=TRUE CALL ENABLE >nul 2>&1
 arp -d
 net stop winmgmt /y
 net start winmgmt
-echo [✓] Configuracoes de rede resetadas.
+echo [OK] Configuracoes de rede resetadas.
 
 :: SID Spoof
 
@@ -204,9 +204,10 @@ if %errorlevel%==0 (
     echo [DICA] Verifique se o Windows já foi syspreppado muitas vezes ou se você tem permissões de administrador.
 )
 
-
-echo [OK] SID spoof concluído.
-
+echo
+echo------------------------------------
+echo
+echo [OK] SPOOF COMCLUIDO
 
 
 pause
