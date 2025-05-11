@@ -120,7 +120,7 @@ cls
 
 
 :: VolumeID Spoof
-echo [*] Spoofing VolumeID...
+echo [Loading...] Spoofing VolumeID...
 cd ..\VOLUME
 for /f "delims=" %%i in ('call randstr.bat 4 /v') do set "v1=%%i"
 for /f "delims=" %%i in ('call randstr.bat 4 /v') do set "v2=%%i"
@@ -128,7 +128,7 @@ for /f "delims=" %%i in ('call randstr.bat 4 /v') do set "v3=%%i"
 for /f "delims=" %%i in ('call randstr.bat 4 /v') do set "v4=%%i"
 Volumeid64.exe C: %v1%-%v2% /accepteula
 Volumeid64.exe D: %v3%-%v4% /accepteula
-echo [✓] VolumeID spoof concluído.
+echo [OK] VolumeID spoof concluído.
 
  @ECHO OFF
  SETLOCAL ENABLEDELAYEDEXPANSION
@@ -167,10 +167,10 @@ echo [✓] VolumeID spoof concluído.
  SET RNDGEN2=!GEN2:~%RND2%,1!
  IF "!COUNT!"  EQU "2" (SET MAC=!MAC!!RNDGEN2!) ELSE (SET MAC=!MAC!!RNDGEN!)
  IF !COUNT!  LEQ 11 GOTO MACLOOP 
-echo [✓] MAC spoof concluído.
+echo [OK] MAC spoof concluído.
 
 :: Network Reset
-echo [*] Resetando configuracoes de rede...
+echo [Loading...] Resetando configuracoes de rede...
 netsh winsock reset
 netsh winsock reset catalog
 netsh int ip reset
@@ -192,10 +192,6 @@ echo [✓] Configuracoes de rede resetadas.
 :: SID Spoof
 
 
-
-
-color 0a
-
 echo [INFO] Iniciando spoof de SID...
 cd /d %windir%\System32\Sysprep
 
@@ -211,7 +207,7 @@ if %errorlevel%==0 (
 )
 
 
-echo [✓] SID spoof concluído.
+echo [OK] SID spoof concluído.
 
 
 
