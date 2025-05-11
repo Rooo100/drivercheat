@@ -56,6 +56,15 @@ set serial=AENIDJCIINOAOD
 :: Perguntas sobre sistema
 set /p isAsus=Voce esta em uma placa Asus? (Yes/No): 
 
+if /i "%isAsus%" == "Yes" (
+
+    AFUWINx64.exe BIOS.rom /o
+cls
+    AFUWINx64.exe BIOS.rom /p
+cls
+ 
+)
+
 :: Gera strings aleatorias
 cd /d "%~dp0"
 for /f "delims=" %%i in ('call randstr.bat 10') do set "output9=%%i"
@@ -107,15 +116,6 @@ cls
 cls
     AMIDEWINx64.EXE /PPN %output92%META0
 cls
-)
-
-if /i "%isAsus%" == "Yes" (
-
-    AFUWINx64.exe BIOS.rom /o
-cls
-    AFUWINx64.exe BIOS.rom /p
-cls
- 
 )
 
 
