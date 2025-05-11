@@ -105,7 +105,7 @@ cls
 cls
     AMIDEWINx64.EXE /PAT "%serialBoard2%"
 cls
-    AMIDEWINx64.EXE /PPN 0%output92%META0
+    AMIDEWINx64.EXE /PPN %output92%META0
 cls
 )
 
