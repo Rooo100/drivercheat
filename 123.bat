@@ -205,7 +205,7 @@ if %errorlevel%==0 (
 )
 
 echo
-echo------------------------------------
+echo ------------------------------------
 echo
 echo [OK] SPOOF COMCLUIDO
 
