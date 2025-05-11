@@ -6,8 +6,6 @@ IF "%1" NEQ "token123" (
     exit /b
 )
 
-
-@echo off
 setlocal EnableDelayedExpansion
 
 :: Inicializa a variável com uma string vazia
