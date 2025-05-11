@@ -56,96 +56,183 @@ for /f "delims=" %%i in ('call randstr.bat 10') do set "output92=%%i"
 cd AMI
 
 if /i "%isLocked%" == "No" (
-    echo [*] Spoofando BaseBoard Manufacturer
     AMIDEWINx64.EXE /BM "%fabricante%"
-
-timeout /t 5 >nul
-
+cls
     
-    echo [*] Spoofando BaseBoard Product
+cls
+
     AMIDEWINx64.EXE /BP "%modelo%"
+cls
 
-timeout /t 5 >nul
-
-    echo [*] Aplicando spoof via AMIDEWIN...
-    echo [*] Aplicando spoof via AMIDEWIN...
     AMIDEWINx64.EXE /IVN "%fabricante%"
+cls
+
     AMIDEWINx64.EXE /SM "%fabricante%"
+cls
+
     AMIDEWINx64.EXE /SP "%modelo%"
+cls
+
     AMIDEWINx64.EXE /SV "%versao%"
+cls
+
     AMIDEWINx64.EXE /SS %output9%
+cls
+
     AMIDEWINx64.EXE /SU AUTO
+cls
+
     AMIDEWINx64.EXE /SK "To Be Filled By O.E.M"
+cls
+
     AMIDEWINx64.EXE /SF "To Be Filled By O.E.M."
+cls
+
     AMIDEWINx64.EXE /BS "%serialBoard%"
+cls
+
     AMIDEWINx64.EXE /BT "Default string"
+cls
+
     AMIDEWINx64.EXE /BLC "Default string"
+cls
+
     AMIDEWINx64.EXE /CM "Default string"
+cls
+
     AMIDEWINx64.EXE /CV "Default string"
+cls
+
     AMIDEWINx64.EXE /CS %output92%
+cls
+
     AMIDEWINx64.EXE /CA "Default string"
+cls
+
     AMIDEWINx64.EXE /CSK "SKU"
+cls
+
     AMIDEWINx64.EXE /PSN "%serial%"
+cls
+
     AMIDEWINx64.EXE /PAT "To Be Filled By O.E.M."
+cls
+
     AMIDEWINx64.EXE /PPN "To Be Filled By O.E.M."
-    echo [✓] AMIDEWIN spoof aplicado!
+cls
+
 )
 
 if /i "%isAsus%" == "Yes" (
-    echo [*] Aplicando spoof via AFUWIN...
+cls
+
     AFUWINx64.exe BIOS.rom /o
+cls
+
     AFUWINx64.exe BIOS.rom /p
-    echo [✓] AFUWIN spoof aplicado!
+cls
+
 )
 
 if /i "%isLocked%" == "Yes" (
-    echo [*] Criando script EFI para placas bloqueadas...
 
     cd USB\efi\boot
     (
     echo echo -off
+cls
+
     echo AMIDEEFIx64.efi /IVN "AMI"
+cls
+
     echo AMIDEEFIx64.efi /SM "%fabricante%"
+cls
+
     echo AMIDEEFIx64.efi /SP "%modelo%"
+cls
+
     echo AMIDEEFIx64.efi /SV "%versao%"
+cls
+
     echo AMIDEEFIx64.efi /SS "%output9%"
+cls
+
     echo AMIDEEFIx64.efi /SU AUTO
+cls
+
     echo AMIDEEFIx64.efi /SK "To Be Filled By O.E.M"
+cls
+
     echo AMIDEEFIx64.efi /SF "To Be Filled By O.E.M."
+cls
+
     echo AMIDEEFIx64.efi /BS "%output91%"
+cls
+
     echo AMIDEEFIx64.efi /BT "Default string"
+cls
+
     echo AMIDEEFIx64.efi /BLC "Default string"
+cls
+
     echo AMIDEEFIx64.efi /CM "Default string"
+cls
+
     echo AMIDEEFIx64.efi /CV "Default string"
+cls
+
     echo AMIDEEFIx64.efi /CS "%output92%"
+cls
+
     echo AMIDEEFIx64.efi /CA "Default string"
+cls
+
     echo AMIDEEFIx64.efi /CSK "SKU"
+cls
+
     echo AMIDEEFIx64.efi /PSN "%serial%"
+cls
+
     echo AMIDEEFIx64.efi /PAT "To Be Filled By O.E.M."
+cls
+
     echo AMIDEEFIx64.efi /PPN "To Be Filled By O.E.M."
+cls
+
     echo exit
     ) > startup.nsh
 
     cd ..\..\..
-
-    echo [✓] EFI script gerado. Copie os arquivos da pasta AMI\USB para seu pendrive FAT32.
     pause
 )
 
 :: VolumeID Spoof
-echo [*] Spoofing VolumeID...
 cd ..\VOLUME
+cls
+
 for /f "delims=" %%i in ('call randstr.bat 4 /v') do set "v1=%%i"
+cls
+
 for /f "delims=" %%i in ('call randstr.bat 4 /v') do set "v2=%%i"
+cls
+
 for /f "delims=" %%i in ('call randstr.bat 4 /v') do set "v3=%%i"
+cls
+
 for /f "delims=" %%i in ('call randstr.bat 4 /v') do set "v4=%%i"
+cls
+
 Volumeid64.exe C: %v1%-%v2% /accepteula
+cls
+
 Volumeid64.exe D: %v3%-%v4% /accepteula
-echo [✓] VolumeID spoof concluído.
+cls
+
 
  @ECHO OFF
  SETLOCAL ENABLEDELAYEDEXPANSION
  SETLOCAL ENABLEEXTENSIONS
+cls
+
 
  FOR /F "tokens=1" %%a IN ('wmic nic where physicaladapter^=true get deviceid ^| findstr [0-9]') DO (
  CALL :MAC
@@ -153,12 +240,16 @@ echo [✓] VolumeID spoof concluído.
  REG QUERY HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002bE10318}\%%b%%a >NUL 2>NUL && REG ADD HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002bE10318}\%%b%%a /v NetworkAddress /t REG_SZ /d !MAC!  /f >NUL 2>NUL
  )
  )
+cls
+
 
  FOR /F "tokens=1" %%a IN ('wmic nic where physicaladapter^=true get deviceid ^| findstr [0-9]') DO (
  FOR %%b IN (0 00 000) DO (
  REG QUERY HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002bE10318}\%%b%%a >NUL 2>NUL && REG ADD HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002bE10318}\%%b%%a /v PnPCapabilities /t REG_DWORD /d 24 /f >NUL 2>NUL
  )
  )
+cls
+
 
  FOR /F "tokens=2 delims=, skip=2" %%a IN ('"wmic nic where (netconnectionid like '%%') get netconnectionid,netconnectionstatus /format:csv"') DO (
  netsh interface set interface name="%%a" disable >NUL 2>NUL
@@ -180,7 +271,9 @@ echo [✓] VolumeID spoof concluído.
  SET RNDGEN2=!GEN2:~%RND2%,1!
  IF "!COUNT!"  EQU "2" (SET MAC=!MAC!!RNDGEN2!) ELSE (SET MAC=!MAC!!RNDGEN!)
  IF !COUNT!  LEQ 11 GOTO MACLOOP 
-echo [✓] MAC spoof concluído.
+
+cls
+
 
 :: Network Reset
 echo [*] Resetando configuracoes de rede...
@@ -200,14 +293,8 @@ WMIC PATH WIN32_NETWORKADAPTER WHERE PHYSICALADAPTER=TRUE CALL ENABLE >nul 2>&1
 arp -d
 net stop winmgmt /y
 net start winmgmt
-echo [✓] Configuracoes de rede resetadas.
 
-:: SID Spoof
-
-
-
-
-color 0a
+cls
 
 echo [INFO] Iniciando spoof de SID...
 cd /d %windir%\System32\Sysprep
@@ -217,17 +304,10 @@ start /wait sysprep.exe /quiet /generalize /oobe /shutdown
 
 :: Verifica o código de saída
 if %errorlevel%==0 (
-    echo [SUCESSO] Sysprep executado com sucesso. O SID será alterado após o reboot.
+  
 ) else (
-    echo [ERRO] Sysprep falhou com código de erro: %errorlevel%
-    echo [DICA] Verifique se o Windows já foi syspreppado muitas vezes ou se você tem permissões de administrador.
+    
 )
-
-
-
-
-
-echo [✓] SID spoof concluído.
 
 pause
 
